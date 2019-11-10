@@ -1,0 +1,279 @@
+label {
+    display: block;
+    margin: 10px
+}
+
+.game .waiting {
+    pointer-events: none;
+    filter: grayscale(0.5)
+}
+
+.game.over .human, .game.over .computer {
+    pointer-events: none;
+    filter: grayscale(0.5)
+}
+
+.game .human, .game .computer {
+    display: inline-block
+}
+
+.game .computer {
+    margin-left: 100px
+}
+
+.game .computer table.shots td {
+    transition: box-shadow 0.1s
+}
+
+.game .computer table.shots td:hover:not(.hit):not(.miss) {
+    box-shadow: 0 0 5px black
+}
+
+
+.game .inventory label {
+    margin: 0
+}
+
+.game table {
+    border-spacing: 0;
+    border-collapse: collapse
+}
+
+.game table th, .game table.background td, .game table.shots td {
+    border: 1px solid transparent;
+    width: 20px;
+    height: 20px;
+    text-align: center;
+    vertical-align: middle
+}
+
+.game table.board td {
+    position: relative
+}
+
+.game table.background, .game table.shots {
+    position: absolute;
+    left: 0;
+    top: 0
+}
+
+.game table.background td {
+    border-color: black
+}
+
+.game table .ships div {
+    position: absolute
+}
+
+.game table .ships div[data-x="0"] {
+    left: 1px
+}
+
+.game table .ships div[data-y="0"] {
+    top: 1px
+}
+
+.game table .ships div[data-x="1"] {
+    left: 24px
+}
+
+.game table .ships div[data-y="1"] {
+    top: 24px
+}
+
+.game table .ships div[data-x="2"] {
+    left: 47px
+}
+
+.game table .ships div[data-y="2"] {
+    top: 47px
+}
+
+.game table .ships div[data-x="3"] {
+    left: 70px
+}
+
+.game table .ships div[data-y="3"] {
+    top: 70px
+}
+
+.game table .ships div[data-x="4"] {
+    left: 93px
+}
+
+.game table .ships div[data-y="4"] {
+    top: 93px
+}
+
+.game table .ships div[data-x="5"] {
+    left: 116px
+}
+
+.game table .ships div[data-y="5"] {
+    top: 116px
+}
+
+.game table .ships div[data-x="6"] {
+    left: 139px
+}
+
+.game table .ships div[data-y="6"] {
+    top: 139px
+}
+
+.game table .ships div[data-x="7"] {
+    left: 162px
+}
+
+.game table .ships div[data-y="7"] {
+    top: 162px
+}
+
+.game table .ships div[data-x="8"] {
+    left: 185px
+}
+
+.game table .ships div[data-y="8"] {
+    top: 185px
+}
+
+.game table .ships div[data-x="9"] {
+    left: 208px
+}
+
+.game table .ships div[data-y="9"] {
+    top: 208px
+}
+
+.game table .ships div[data-x="10"] {
+    left: 231px
+}
+
+.game table .ships div[data-y="10"] {
+    top: 231px
+}
+
+.game table .ships div[data-x="11"] {
+    left: 254px
+}
+
+.game table .ships div[data-y="11"] {
+    top: 254px
+}
+
+.game table .ships div[data-x="12"] {
+    left: 277px
+}
+
+.game table .ships div[data-y="12"] {
+    top: 277px
+}
+
+.game table .ships div[data-x="13"] {
+    left: 300px
+}
+
+.game table .ships div[data-y="13"] {
+    top: 300px
+}
+
+.game table .ships div[data-x="14"] {
+    left: 323px
+}
+
+.game table .ships div[data-y="14"] {
+    top: 323px
+}
+
+.game table .ships div[data-x="15"] {
+    left: 346px
+}
+
+.game table .ships div[data-y="15"] {
+    top: 346px
+}
+
+.game table .ships div[data-x="16"] {
+    left: 369px
+}
+
+.game table .ships div[data-y="16"] {
+    top: 369px
+}
+
+.game table .ships div[data-x="17"] {
+    left: 392px
+}
+
+.game table .ships div[data-y="17"] {
+    top: 392px
+}
+
+.game table .ships div[data-x="18"] {
+    left: 415px
+}
+
+.game table .ships div[data-y="18"] {
+    top: 415px
+}
+
+.game table .ships div[data-x="19"] {
+    left: 438px
+}
+
+.game table .ships div[data-y="19"] {
+    top: 438px
+}
+
+.game table .ships div[data-x="20"] {
+    left: 461px
+}
+
+.game table .ships div[data-y="20"] {
+    top: 461px
+}
+
+.game table .ships div[data-vertical=true] {
+    transform: rotate(90deg);
+    transform-origin: 10px 10px
+}
+
+.game table .ships div::before {
+    vertical-align: middle;
+    font-family: monospace;
+    letter-spacing: 11px;
+    font-size: 20px;
+    padding-left: 4px
+}
+
+.game table .ships .carrier::before {
+    content: '<===>';
+    display: none;
+}
+
+.game table .ships .battleship::before { 
+    content: '<==>';
+    display: none;
+}
+
+.game table .ships .cruiser::before {
+    content: '<=>';
+    display: none;
+}
+
+.game table .ships .destroyer::before {
+    content: '<>';
+    display: none;
+}
+/* 
+.game table.shots td.hit {
+    background-color: rgba(255, 192, 203, 0.75)
+}
+
+.game table.shots td.miss {
+    background-color: rgba(173, 216, 230, 0.75)
+} */
+
+.game button.restart {
+    display: block
+}

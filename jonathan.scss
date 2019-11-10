@@ -1,0 +1,651 @@
+$table-border: #d9d9d9;
+body{
+    background-color: #215f65;
+    font-family: "Montserrat", sans-serif;
+}
+#root{
+    text-transform: uppercase;
+    font-size: 20px;
+    font-stretch: ultra-expanded;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color:#36d7e9;
+    h1{
+        font-weight: 300;
+        font-size: 70px;
+        display: flex;
+        align-self: center;
+    }
+    .setup{
+        width: 370px;
+        display: flex;
+        flex-direction: column;
+        label{
+            margin: 10px;
+            display: flex;
+            justify-content: space-between;
+            height: 45px;
+            input{
+                width: 50px;
+                height: 20px;
+                margin-top: 8px;
+            }
+            span{
+                width: 250px;
+                text-indent:-99999em;
+                overflow:hidden;
+            }           
+        }
+        label.board-size span{
+                display: none;
+        }
+        label.board-size:after {
+            color: white;
+            content: "BOARD SIZE";
+            margin-right: 90px;
+            margin-top: 7px;
+            font-size: 25px;
+            font-weight: 400;
+        }
+            label.carriers span{
+                background: url(images/Carrier.svg) 0 0 no-repeat;
+            }
+            label.battleships span{
+                background: url(images/Battleship.svg) 0 0 no-repeat;
+            }
+            label.cruisers span{
+                background: url(images/Crusier.svg) 0 0 no-repeat;
+            }
+            label.destroyers span{
+                background: url(images/Destroyer.svg) 0 0 no-repeat;
+            }
+            .start{
+                margin-top: 20px;
+                color: #36d7e9;
+                font-family: "Montserrat", sans-serif;
+                text-transform: uppercase;
+                font-size: 30px;
+                align-self: center;
+                width: 200px;
+                height: 92px;
+                margin: 50px 0 0 0;
+                padding: 0;
+                border: 0;
+                cursor: pointer;
+                background: transparent url(images/Button.svg) no-repeat center top;
+            }
+    }
+    .game{
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        
+        .shipsDesignReusable{
+            transform: scale(0.85) rotate(270deg) translateY(-50%);
+            transform-origin: left top;
+            display: flex;
+            flex-direction: column-reverse;
+            left: 50%;
+            top: 70px;
+            position: absolute;
+            &::after{
+                content: "________________________________";
+                font-size: 11px;
+                /* bottom: 15px; */
+                transform: rotate(90deg) translateX(-54%);
+                top: 50%;
+                /* position: absolute; */
+                /* transform: rotate(90deg); */
+                transform-origin: left;
+                position: absolute;
+                }
+        }
+        .shipsLabelReusable{
+            background: transparent url(images/Button.svg) no-repeat center center;
+            height: 108px;
+            width: 240px;
+            text-indent: -99999px;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            overflow: hidden;       
+            background-size: 232px;         
+        }
+        .human{
+            display: flex;
+            flex-grow: 1;
+            justify-content: center;
+            flex-direction: column;
+            margin: 0;
+            padding-bottom: 50px;
+            .inventory{ 
+                position: relative;
+                height: 93px; 
+                margin-bottom: 50px; 
+                &::after{
+                    position: absolute;
+                    content: "MY FLEET";
+                    font-size: 11px;
+                    bottom: 0px;
+                    transform: translateX(-50%);
+                    left: 50%;                 
+                }             
+                label{
+                    @extend .shipsLabelReusable;
+                }
+                .ships{
+                   @extend .shipsDesignReusable;
+                   div{
+                       margin-top: -8px;
+                   }
+                }                
+            }
+        }
+        .computer{
+            display: flex;
+            flex-grow: 1;
+            justify-content: center;
+            flex-direction: column;
+            margin: 0;
+            padding-bottom: 50px;
+            .inventory{
+                position: relative;
+                height: 93px;
+                margin-bottom: 50px; 
+                &::after{
+                    position: absolute;
+                    content: "ENEMY FLEET";
+                    font-size: 11px;
+                    bottom: 0px;
+                    transform: translateX(-50%);
+                    left: 50%;                 
+                } 
+                label{
+                    @extend .shipsLabelReusable;
+                }            
+                .ships{
+                   @extend .shipsDesignReusable;
+                   div{
+                       margin-top: -8px;
+                   }
+                }
+            }
+            .board{
+                .ships{
+                    opacity: 0.5;
+                }
+            }
+        }
+        button{
+            flex-basis: 100%;
+        }
+        .board{
+            font-size: 15px;
+            align-self: center;
+            @mixin imageInsert($a, $b) {
+                background: url($a) !important;
+                width: $b;
+                height: 25px;
+                margin-left: 0px;
+                background-size: contain !important;
+                background-repeat: no-repeat !important;
+                margin-top: -1px;
+            }
+            .ships{
+                div.carrier{
+                    @include imageInsert("images/Carrier.svg", 108px);
+                    &[data-vertical=true]{
+                        margin-top: -1px;
+                        margin-left: 2px;
+                    }
+                }
+                div.battleship{
+                    @include imageInsert("images/Battleship.svg", 88px);
+                    &[data-vertical=true]{
+                        margin-top: 0px;
+                        margin-left: 1px;
+                    }
+                }
+                div.cruiser{
+                    @include imageInsert("images/Crusier.svg", 65px)
+                }
+                div.destroyer{
+                    @include imageInsert("images/Destroyer.svg", 45px);
+                    &[data-vertical=true]{
+                        margin-top: -3px;
+                        margin-left: 0px;
+                    }
+                }
+
+            }
+            .hit{
+                background-image: url(images/Hit.svg);
+                background-size: 13px;
+                background-repeat: no-repeat;
+                left: 4px;
+                top: 4px;
+            }
+            .miss{
+                background-image: url(images/Miss.svg);
+                background-size: contain;
+            }
+            
+        }
+        .restart{
+            margin-top: 20px;
+            color: #36d7e9;
+            font-family: "Montserrat", sans-serif;
+            text-transform: uppercase;
+            font-size: 30px;
+            align-self: center;
+            width: 200px;
+            height: 92px;
+            margin: 50px 0 0 0;
+            padding: 0;
+            border: 0;
+            cursor: pointer;
+            background: transparent url(images/Button.svg) no-repeat center top;
+            margin-left: auto;
+            margin-right: auto;
+        }
+    
+        @mixin banner($message){
+            display: block;
+            position: relative;
+            width: 100%;
+            height: 115px;
+            background-color: #215f65;
+            position: absolute;
+            left: 0;
+            text-indent: -9999px;
+            overflow: hidden;
+            text-align: center;
+            top: 50%;
+            z-index: 10;
+            border: #36d7e9;
+            border-top-style: solid;
+            border-bottom-style: solid;
+            margin: 0;
+            &::after{
+                font-family: "Montserrat", sans-serif;
+                position: absolute;
+                content: "$message";
+                background-image: url(images/Banner.svg) !important;
+                font-size: 11px;
+                bottom: 6px;
+                transform: translateX(-50%);
+                left: 50%;
+                font-size: 20px;
+                height: 100px;
+                color: white;
+                width: 200px;
+                background: no-repeat;
+                background-size: 200px;
+                z-index: -1;
+                text-indent: 9999px;
+            }
+            &::before{
+                font-family: "Montserrat", sans-serif;
+                position: absolute;
+                content: $message;
+                //background-image: url(images/Banner.svg) !important;
+                font-size: 11px;
+                bottom: 6px;
+                transform: translateX(-50%);
+                left: 50%;
+                font-size: 20px;
+                height: 100px;
+                color: white;
+                width: 200px;
+                background: no-repeat;
+                background-size: 200px;
+                text-indent: 9999px;
+            }
+        }
+    
+        &.over .banner{
+            @include banner("YOU LOST");
+        }
+        &:not(.over) .banner{
+            @include banner("***YOU WON***");
+        }
+ 
+        .computer table.shots td:hover:not(.hit):not(.miss) {
+            background-image: url(images/Crosshair.svg) !important;
+            background-size: contain;
+        }
+        // table.shots tr:hover{
+        //     background-color: white;
+        //     opacity: 0.7;
+        // } 
+        .inventory .ships{
+            div.carrier::before {
+                content: '\25a0\25a0\25a0\25a0\25a0'
+            }
+            div.battleship::before {
+                content: '\25a0\25a0\25a0\25a0'
+            }
+            div.cruiser::before {
+                content: '\25a0\25a0\25a0'
+            }
+            div.destroyer::before {
+                content: '\25a0\25a0'
+            }
+            div.sunken.carrier::before {
+                content: '\25a1\25a1\25a1\25a1\25a1'
+            }
+            div.sunken.battleship::before {
+                content: '\25a1\25a1\25a1\25a1'
+            }
+            div.sunken.cruiser::before {
+                content: '\25a1\25a1\25a1'
+            }
+            div.sunken.destroyer::before {
+                content: '\25a1\25a1'
+            }
+            
+        }
+    }
+
+// .game{
+//      table th, table.background td, table.shots td {
+//         border: 1px solid transparent;
+//         width: 20px;
+//         height: 20px;
+//         text-align: center;
+//         vertical-align: middle
+//     }
+
+//     $table-border: #d9d9d9;
+    // .flex-table {
+    //     display: flex;
+    //     flex-flow: row wrap;
+    //     border: 1px solid #232121d6;
+    //     //border-left: solid 1px $table-border;
+    //     transition: 0.5s;
+    // }
+    // td{
+    //     @extend .flex-table;
+    // }
+}
+label {
+    display: block;
+    margin: 10px
+}
+
+.game .waiting {
+    pointer-events: none;
+    filter: grayscale(0.5)
+}
+
+.game.over .human, .game.over .computer {
+    pointer-events: none;
+    filter: grayscale(0.5)
+}
+
+.game .human, .game .computer {
+    display: inline-block
+}
+
+.game .computer {
+    margin-left: 100px
+}
+
+.game .computer table.shots td {
+    transition: box-shadow 0.1s
+}
+
+.game .computer table.shots td:hover:not(.hit):not(.miss) {
+    box-shadow: 0 0 5px black
+}
+
+
+.game .inventory label {
+    margin: 0
+}
+
+.game table {
+    border-spacing: 0;
+    border-collapse: collapse
+}
+
+.game table th, .game table.background td, .game table.shots td {
+    border: 1px solid transparent;
+    width: 20px;
+    height: 20px;
+    text-align: center;
+    vertical-align: middle
+}
+
+.game table.board td {
+    position: relative
+}
+
+.game table.background, .game table.shots {
+    position: absolute;
+    left: 0;
+    top: 0
+}
+
+.game table.background td {
+    border-color: black
+}
+
+.game table .ships div {
+    position: absolute
+}
+
+.game table .ships div[data-x="0"] {
+    left: 1px
+}
+
+.game table .ships div[data-y="0"] {
+    top: 1px
+}
+
+.game table .ships div[data-x="1"] {
+    left: 24px
+}
+
+.game table .ships div[data-y="1"] {
+    top: 24px
+}
+
+.game table .ships div[data-x="2"] {
+    left: 47px
+}
+
+.game table .ships div[data-y="2"] {
+    top: 47px
+}
+
+.game table .ships div[data-x="3"] {
+    left: 70px
+}
+
+.game table .ships div[data-y="3"] {
+    top: 70px
+}
+
+.game table .ships div[data-x="4"] {
+    left: 93px
+}
+
+.game table .ships div[data-y="4"] {
+    top: 93px
+}
+
+.game table .ships div[data-x="5"] {
+    left: 116px
+}
+
+.game table .ships div[data-y="5"] {
+    top: 116px
+}
+
+.game table .ships div[data-x="6"] {
+    left: 139px
+}
+
+.game table .ships div[data-y="6"] {
+    top: 139px
+}
+
+.game table .ships div[data-x="7"] {
+    left: 162px
+}
+
+.game table .ships div[data-y="7"] {
+    top: 162px
+}
+
+.game table .ships div[data-x="8"] {
+    left: 185px
+}
+
+.game table .ships div[data-y="8"] {
+    top: 185px
+}
+
+.game table .ships div[data-x="9"] {
+    left: 208px
+}
+
+.game table .ships div[data-y="9"] {
+    top: 208px
+}
+
+.game table .ships div[data-x="10"] {
+    left: 231px
+}
+
+.game table .ships div[data-y="10"] {
+    top: 231px
+}
+
+.game table .ships div[data-x="11"] {
+    left: 254px
+}
+
+.game table .ships div[data-y="11"] {
+    top: 254px
+}
+
+.game table .ships div[data-x="12"] {
+    left: 277px
+}
+
+.game table .ships div[data-y="12"] {
+    top: 277px
+}
+
+.game table .ships div[data-x="13"] {
+    left: 300px
+}
+
+.game table .ships div[data-y="13"] {
+    top: 300px
+}
+
+.game table .ships div[data-x="14"] {
+    left: 323px
+}
+
+.game table .ships div[data-y="14"] {
+    top: 323px
+}
+
+.game table .ships div[data-x="15"] {
+    left: 346px
+}
+
+.game table .ships div[data-y="15"] {
+    top: 346px
+}
+
+.game table .ships div[data-x="16"] {
+    left: 369px
+}
+
+.game table .ships div[data-y="16"] {
+    top: 369px
+}
+
+.game table .ships div[data-x="17"] {
+    left: 392px
+}
+
+.game table .ships div[data-y="17"] {
+    top: 392px
+}
+
+.game table .ships div[data-x="18"] {
+    left: 415px
+}
+
+.game table .ships div[data-y="18"] {
+    top: 415px
+}
+
+.game table .ships div[data-x="19"] {
+    left: 438px
+}
+
+.game table .ships div[data-y="19"] {
+    top: 438px
+}
+
+.game table .ships div[data-x="20"] {
+    left: 461px
+}
+
+.game table .ships div[data-y="20"] {
+    top: 461px
+}
+
+.game table .ships div[data-vertical=true] {
+    transform: rotate(90deg);
+    transform-origin: 10px 10px
+}
+
+.game table .ships div::before {
+    vertical-align: middle;
+    font-family: monospace;
+    letter-spacing: 11px;
+    font-size: 20px;
+    padding-left: 4px
+}
+
+.game table .ships .carrier::before {
+    content: '<===>';
+    display: none;
+}
+
+.game table .ships .battleship::before { 
+    content: '<==>';
+    display: none;
+}
+
+.game table .ships .cruiser::before {
+    content: '<=>';
+    display: none;
+}
+
+.game table .ships .destroyer::before {
+    content: '<>';
+    display: none;
+}
+/* 
+.game table.shots td.hit {
+    background-color: rgba(255, 192, 203, 0.75)
+}
+
+.game table.shots td.miss {
+    background-color: rgba(173, 216, 230, 0.75)
+} */
+
+.game button.restart {
+    display: block
+}
